@@ -1,8 +1,8 @@
-name: Java CI with Gradle
+name: TEST CI
 
 on:
   push:
-    branches: [main, develop, feature/*]
+    branches: [main]
 
 # dorny/test-reporterに必要な権限追加
 permissions:
@@ -16,9 +16,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: 
+        uses: actions/checkout@v4
       - name: Set up JDK 21
-        uses: 
+        uses: actions/setup-java@v4
+        with:
           java-version: "21"
           distribution: "temurin"
           cache: "gradle"
@@ -29,5 +30,5 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-      - name: 
-        run: 
+      - name: Run JUnit tests
+        run: ./gradlew test
